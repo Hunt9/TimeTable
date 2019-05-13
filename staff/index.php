@@ -18,7 +18,7 @@ if(isset($save))
 		{
 		$_SESSION['name']=$res['name'];
 		$_SESSION['teacher_id']=$res['teacher_id'];
-		echo "<script>window.location='staffdashboard.php'</script>";
+		echo "<script>window.location='dashboard'</script>";
 		}
 		else
 		{

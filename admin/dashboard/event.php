@@ -281,15 +281,7 @@ mysqli_close($connection);
 ?>
 
 
-
-
-
-
-
-
-
-
-                 
+   
 
                   </tbody>
                 </table>

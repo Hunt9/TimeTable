@@ -20,7 +20,7 @@ if(isset($save))
 		$_SESSION['stu_id']=$res['stu_id'];
 		$_SESSION['e_id']=$e;
 
-		echo "<script>window.location='studentdashboard.php'</script>";
+		echo "<script>window.location='dashboard'</script>";
 		}
 		else
 		{
