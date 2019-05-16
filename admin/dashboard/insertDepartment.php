@@ -1,22 +1,3 @@
-<?php
-  	if(isset($_POST['insertBr'])) {
-		$conn=mysqli_connect('localhost','root','','timetable');
-		$br=$_POST["br"];
-		$room=$_POST["room"];
-		$seat=$_POST["seat"];
-		$sql = "INSERT INTO room (name,seats,building_id)
-        VALUES ('".$room."','".$seat."','".$br."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-	
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,7 +130,7 @@ mysqli_close($conn);
           </button>
 
           <!-- Topbar Search -->
-          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -158,7 +139,7 @@ mysqli_close($conn);
                 </button>
               </div>
             </div>
-          </form>-->
+          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -212,7 +193,7 @@ mysqli_close($conn);
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
-          <p class="mb-4">Below are the Building and Room ,Click <a href="#" data-toggle="modal" data-target="#insertModal">
+          <p class="mb-4">Below are the Department. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
                 </a> to Add New
 
@@ -226,70 +207,17 @@ mysqli_close($conn);
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-					<th>ID</th>
-                      <th>Room</th>
-                      <th>Seat</th>
-                      <th>Building</th>
-                      
+                      <th>Department</th>
+                     
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-										<th>ID</th>
-                         <th>Room</th>
-                      <th>Seat</th>
-                      <th>Building</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
                  
-                           <?php
-					$con=mysqli_connect('localhost','root','','timetable');
-
-function getData()
-{
-    
-$con=mysqli_connect('localhost','root','','timetable');
-
-
-$query = "Select room.id,room.name as rm,room.seats,building.name from room INNER JOIN building on room.building_id=building.id"; 
-
-$result = mysqli_query($con,$query);
-
- // start a table tag in the HTML
-
-while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-
-//$rpid = $row["rp_id"];
-//$pid = $row["p_id"];
-
-    echo "<tr>
-    <td>". $row["id"]. "</td>
-	 <td>". $row["rm"]. " </td>
-	  <td>". $row["seats"]. " </td>
-	 <td>". $row["name"]. " </td>
-	 
-
-   
-   
-    </tr>";
- //$row['index'] the index here is a field name
-}
-
- //Close the table in HTML
-
-
-mysqli_close($con);
-}
-
-    getData();
-
-
- 
-mysqli_close($con);
-
- 
-?> 
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      
+                    </tr>
+                   
 
                   </tbody>
                 </table>
@@ -324,39 +252,19 @@ mysqli_close($con);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST" action="#">
+              <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-				  <select name="br">
-                     <?php
-   $con=mysqli_connect('localhost','root','','timetable');
-
-
-$query = "Select * from building"; 
-
-$result = mysqli_query($con,$query);
-  while($row = mysqli_fetch_array($result)) {
-
-    ?>
-	  <option value="<?php echo $row['id'];  ?>"><?php echo $row['name'];  ?></option>
-  <?php } ?>
-					</select>
+                    <input type="text" class="form-control form-control-user" id="departmentName" placeholder="Department Name">
                   </div>
                  
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="room" name="room" placeholder="Enter room">
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="seat" name="seat" placeholder="seats">
-                  </div>
+                
                
-                </div>
                
       
           
-            
+              </form>
 
           
             </div>
@@ -365,9 +273,8 @@ $result = mysqli_query($con,$query);
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-         <input class="btn btn-secondary"  type="submit" id="insertBr" name="insertBr" value="Insert" >
+          <a class="btn btn-primary" href="login.html">Add</a>
         </div>
-		  </form>
       </div>
     </div>
   </div>

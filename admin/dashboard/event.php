@@ -1,3 +1,24 @@
+<?php
+    if(isset($_POST['insertevent'])) {
+    $conn=mysqli_connect('localhost','root','','timetable');
+    $name=$_POST["ename"];
+    $discrip=$_POST["ediscrip"];
+    $date=$_POST["edate"];
+    $starttime=$_POST["estime"];
+    $endtime=$_POST["eetime"];
+    $sql = "INSERT INTO event (name,description,date,start_time,end_time)
+        VALUES ('".$name."','".$discrip."','".$date."','".$starttime."','".$endtime."')";
+    if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+
+  
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -281,7 +302,15 @@ mysqli_close($connection);
 ?>
 
 
-   
+
+
+
+
+
+
+
+
+                 
 
                   </tbody>
                 </table>
@@ -316,35 +345,35 @@ mysqli_close($connection);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Event Name">
+                    <input type="text" class="form-control form-control-user" id="ename" name="ename" placeholder="Event Name">
                   </div>
               
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Event Description">
+                  <input type="text" class="form-control form-control-user" id="ediscrip" name = "ediscrip" placeholder="Event Description">
                 </div>
 
                 <div class="form-group">
-                 Date: <input type="date" name="eventDate" class="form-control form-control-user" id="exampleInputEmail">
+                 Date: <input type="date" class="form-control form-control-user" id="edate" name = "edate">
                 </div>
 
                  <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    Start Time: <input type="time" name="startTime" class="form-control form-control-user" id="exampleInputEmail">
+                    Start Time: <input type="time"  class="form-control form-control-user" id="estime" name="estime">
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    End Time: <input type="time" name="endTime" class="form-control form-control-user" id="exampleInputEmail">
+                    End Time: <input type="time" class="form-control form-control-user" id="eetime" name="eetime">
                   </div>
               
                 </div>
 
       
-              </form>
+              
           
             </div>
        
@@ -352,14 +381,14 @@ mysqli_close($connection);
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-          <a class="btn btn-primary" href="login.html">Insert</a>
+          <button class="btn btn-primary" type="submit" name="insertevent" id = "insertevent">Insert</button>
         </div>
       </div>
     </div>
   </div>
     </div>
 
-
+</form>
 
 
 

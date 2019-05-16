@@ -1,3 +1,22 @@
+<?php
+  	if(isset($_POST['insertSub'])) {
+		$conn=mysqli_connect('localhost','root','','timetable');
+		$did=$_POST["dep"];
+		$sid=$_POST["sem"];
+		$sub=$_POST["sub"];
+		$sql = "INSERT INTO subject (subject_name,sem_id,department_id)
+        VALUES ('".$sub."','".$sid."','".$did."')";
+		if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+
+	
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +149,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!--  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -139,7 +158,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form>-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -193,7 +212,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
-          <p class="mb-4">Below are the Schedules for Subjects, Teachers, Events and Rooms. Click <a href="#" data-toggle="modal" data-target="#insertModal">
+          <p class="mb-4">Below are the  Subjects Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
                 </a> to Add New
 
@@ -207,33 +226,76 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>ID</th>
+                      <th>Subject</th>
+                      <th>Semester</th>
+                      <th>Department</th>
+                      
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                        <th>ID</th>
+                      <th>Subject</th>
+                      <th>Semester</th>
+                      <th>Department</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
+                     <?php
+					$con=mysqli_connect('localhost','root','','timetable');
+
+function getData()
+{
+    
+$con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select subject.subject_id,subject.subject_name,
+department.department_name,semester.semester_name
+FROM subject
+INNER join department ON
+subject.department_id=department.department_id
+inner join semester
+on subject.department_id=department.department_id"; 
+
+$result = mysqli_query($con,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+//$rpid = $row["rp_id"];
+//$pid = $row["p_id"];
+
+    echo "<tr>
+    <td>". $row["subject_id"]. "</td>
+	 <td>". $row["subject_name"]. " </td>
+	 <td>". $row["semester_name"]. " </td>
+	 	 <td>". $row["department_name"]. " </td>
+	 
+
+   
+   
+    </tr>";
+ //$row['index'] the index here is a field name
+}
+
+ //Close the table in HTML
+
+
+mysqli_close($con);
+}
+
+    getData();
+
+
+ 
+mysqli_close($con);
+
+ 
+?>
+                    
                    
 
                   </tbody>
@@ -269,31 +331,52 @@
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST" action="">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+				   <select name="sem">
+				   <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from semester"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+                    
+					  <option value="<?php echo $row['sem_id'];  ?>"><?php echo $row['semester_name'];  ?></option>
+  <?php } ?>
+					 </select>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                    <select name="dep">
+					 <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from department"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['department_id'];  ?>"><?php echo $row['department_name'];  ?></option>
+  <?php } ?>
+					</select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                  <input type="text" class="form-control form-control-user" id="sub" name="sub" placeholder="Enter Subject">
                 </div>
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
-                  </div>
+                  
                 </div>
                
       
           
-              </form>
-
+             
           
             </div>
        
@@ -301,7 +384,9 @@
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-          <a class="btn btn-primary" href="login.html">Insert</a>
+         <input class="btn btn-secondary"  type="submit" id="insertSub" name="insertSub" value="Insert" >
+		   </form>
+
         </div>
       </div>
     </div>

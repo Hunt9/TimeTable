@@ -1,3 +1,26 @@
+   <?php 
+	   	if(isset($_POST['insertTime'])) {
+	$conn=mysqli_connect('localhost','root','','timetable');
+		$sub=$_POST["sub"];
+		$tmid=$_POST["time"];
+		$dte=$_POST["dte"];
+		$day=$_POST["day"];
+		$rid=$_POST["rid"];
+		$tid=$_POST["tid"];
+		//echo $tid;
+		$eve="";
+		$sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
+        VALUES ('".$sub."','".$tmid."','".$dte."','".$day."','".$rid."','".$tid."')";
+		if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+
+	}
+	   ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +153,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <!--    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -139,7 +162,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form>-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -207,32 +230,99 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Subject</th>
+                      <th>Semester</th>
+                      <th>Department</th>
+                      <th>Normal Time</th>
+                      <th>Friday Time</th>
+                      <th>Date</th>
+					   <th>Day</th>
+					   <th>Room</th>
+					   <th>Building</th>
+					  
+					     <th>Teacher</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Subject</th>
+                      <th>Semester</th>
+                      <th>Department</th>
+                      <th>Normal Time</th>
+                      <th>Friday Time</th>
+                      <th>Date</th>
+					   <th>Day</th>
+					   	   <th>Room</th>
+					   <th>Building</th>
+	
+					     <th>Teacher</th>
                     </tr>
                   </tfoot>
                   <tbody>
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
+                        <?php
+					$con=mysqli_connect('localhost','root','','timetable');
+
+function getData()
+{
+    
+$con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select timeschedule.timeschedule_id,subject.subject_name,semester.semester_name, 
+department.department_name,timeslot.normal_time,timeslot.friday_time, timeschedule.date,timeschedule.day
+,room.name as room,building.name as building, teacher.name as tchr from timeschedule INNER join subject 
+on subject.subject_id=timeschedule.subject_id inner join semester on semester.sem_id=subject.sem_id 
+inner join teacher on
+ teacher.teacher_id=timeschedule.teacher_id inner join 
+ department on department.department_id=semester.department_id INNER join timeslot on timeslot.id=timeschedule.time_id inner join room 
+on room.id=timeschedule.room_id INNER join building on room.building_id=building.id "; 
+
+$result = mysqli_query($con,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+//$rpid = $row["rp_id"];
+//$pid = $row["p_id"];
+
+    echo "<tr>
+    <td>". $row["timeschedule_id"]. "</td>
+	 <td>". $row["subject_name"]. " </td>
+	 <td>". $row["semester_name"]. " </td>
+	  <td>". $row["normal_time"]. " </td>
+	   <td>". $row["friday_time"]. " </td>
+	    <td>". $row["date"]. " </td>
+		<td>". $row["day"]. " </td>
+		<td>". $row["room"]. " </td>
+		<td>". $row["building"]. " </td>
+			
+								<td>". $row["tchr"]. " </td>
+
+
+	 
+
+   
+   
+    </tr>";
+ //$row['index'] the index here is a field name
+}
+
+ //Close the table in HTML
+
+
+mysqli_close($con);
+}
+
+    getData();
+
+
+ 
+mysqli_close($con);
+
+ 
+?> 
                     </tr>
                    
 
@@ -269,30 +359,97 @@
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST" action="">
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
+				<select  class="btn btn-secondary btn-sm dropdown-toggle" id="sub" name="sub">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select subject.subject_id,subject.subject_name,
+department.department_name,semester.semester_name
+FROM subject
+INNER join department ON
+subject.department_id=department.department_id
+inner join semester
+on subject.department_id=department.department_id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['subject_id'];  ?>"><?php echo $row['subject_name']."[".$row['department_name']."]".":".$row['semester_name'];  ?></option>
+  <?php } ?>
+					</select>
+                 <!-- <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
                   </div>
                   <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
-                  </div>
+                  </div>-->
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                <select  class="btn btn-secondary btn-sm dropdown-toggle" name="time">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from timeslot"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['id'];  ?>"><?php echo $row['normal_time']."[".$row['friday_time']."]";  ?></option>
+  <?php } ?>
+					</select>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                    <input type="date" class="form-control form-control-user" id="dte" name="dte" placeholder="Date">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                    <input type="text" class="form-control form-control-user" id="day" name="day" placeholder="Day">
                   </div>
                 </div>
-               
-      
+               <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <select  class="btn btn-secondary btn-sm dropdown-toggle" id="rid" name="rid">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select room.id,room.name as rm,building.name from room INNER JOIN building on room.building_id=building.id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['id'];  ?>"><?php echo $row['rm']."[".$row['name']."]";  ?></option>
+  <?php } ?>
+					</select>
+                  </div>
+                  
+                </div>
+            <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <select  class="btn btn-secondary btn-sm dropdown-toggle" id="tid" name="tid">
+					 <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "SELECT teacher.teacher_id,teacher.name,department.department_name from teacher INNER JOIN department on department.department_id=teacher.department_id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['teacher_id'];  ?>"><?php echo $row['name']."[".$row['department_name']."]";  ?></option>
+  <?php } ?>
+					</select>
+					</div></div>
           
-              </form>
+             
 
           
             </div>
@@ -301,14 +458,14 @@
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-          <a class="btn btn-primary" href="login.html">Insert</a>
+             <input class="btn btn-secondary"  type="submit" id="insertTime" name="insertTime" value="Add" >
         </div>
       </div>
     </div>
   </div>
     </div>
 
-
+ </form>
 
 
 

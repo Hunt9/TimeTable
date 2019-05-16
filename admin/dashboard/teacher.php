@@ -1,3 +1,33 @@
+<?php
+ 	if(isset($_POST['insertT'])) {
+	$conn=mysqli_connect('localhost','root','','timetable');
+		$nme=$_POST["nme"];
+		$eml=$_POST["eml"];
+		$cnt=$_POST["contact"];
+		$pass=$_POST["pass"];
+				$rpass=$_POST["rpass"];
+				$add=$_POST["add"];
+								$did=$_POST["dep"];
+								if($pass==$rpass)
+								{
+		$sql = "INSERT INTO teacher (name,eid,password,mob,address,department_id)
+        VALUES ('".$nme."','".$eml."','".$cnt."','".$pass."','".$add."','".$did."')";
+		if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+								}
+								else
+								{
+									 echo "Wrong password ";
+								}
+
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +160,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+       <!--     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -139,7 +169,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form>-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -193,7 +223,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
-          <p class="mb-4">Below are the Schedules for Subjects, Teachers, Events and Rooms. Click <a href="#" data-toggle="modal" data-target="#insertModal">
+          <p class="mb-4">Below are the Teacher. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
                 </a> to Add New
 
@@ -207,34 +237,77 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+					 <th>ID</th>
                       <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Email ID</th>
+                      <th>Password</th>
+                      <th>Contact</th>
+                      <th>Address</th>
+                      <th>Department</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+					 <th>ID</th>
                       <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Email ID</th>
+                      <th>Password</th>
+                      <th>Contact</th>
+                      <th>Address</th>
+                      <th>Department</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                   
+           <?php
+					$con=mysqli_connect('localhost','root','','timetable');
+
+function getData()
+{
+    
+$con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "SELECT teacher.teacher_id,teacher.name, teacher.eid,
+teacher.password, teacher.mob,teacher.address, department.department_name from teacher INNER JOIN department on department.department_id=teacher.department_id"; 
+
+$result = mysqli_query($con,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+//$rpid = $row["rp_id"];
+//$pid = $row["p_id"];
+
+    echo "<tr>
+    <td>". $row["teacher_id"]. "</td>
+	 <td>". $row["name"]. " </td>
+	 	 <td>". $row["eid"]. " </td>
+		 	 <td>". $row["password"]. " </td>
+			 	 <td>". $row["mob"]. " </td>
+				 	 <td>". $row["address"]. " </td>
+					 				 	 <td>". $row["department_name"]. " </td>
+
+   
+   
+    </tr>";
+ //$row['index'] the index here is a field name
+}
+
+ //Close the table in HTML
+
+
+mysqli_close($con);
+}
+
+    getData();
+
+
+ 
+mysqli_close($con);
+
+ 
+?>    
 
                   </tbody>
                 </table>
@@ -269,30 +342,61 @@
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                    <input type="text" class="form-control form-control-user" id="nme" name="nme" placeholder="Name">
                   </div>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+				  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="eml" name="eml" placeholder="Email">
                   </div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
-                  </div>
-                </div>
                
+                </div>
+			
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="contact" name="contact" placeholder="Contact">
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" id="pass"  name="pass" placeholder="Password">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" id="rpass"  name="rpass"  placeholder="Repeat Password">
+                  </div>
+                </div>
+				   <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="add" name="add" placeholder="Address">
+                  </div>
+                  <div class="col-sm-6">
+				  <div class="col-sm-6 mb-3 mb-sm-0">
+                 
+                      <select name="dep">
+					 <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from department"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['department_id'];  ?>"><?php echo $row['department_name'];  ?></option>
+  <?php } ?>
+					</select>
+					</div>
+                  </div>
+                </div>
+               		 
+                  </div>
+                  <div class="col-sm-6">
+				   <div class="form-group row">
+                  
+					</div></div>
       
           
-              </form>
+             
 
           
             </div>
@@ -301,28 +405,23 @@
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-          <a class="btn btn-primary" href="login.html">Insert</a>
+           <input class="btn btn-secondary"  type="submit" id="insertT" name="insertT" value="Insert" >
+		  
         </div>
       </div>
     </div>
   </div>
     </div>
 
-
-
+ </form>
 
 
 
 
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; FYP</span>
-          </div>
-        </div>
-      </footer>
+
+   
       <!-- End of Footer -->
 
     </div>
