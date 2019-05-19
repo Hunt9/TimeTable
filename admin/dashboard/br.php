@@ -195,7 +195,12 @@
           <h1 class="h3 mb-2 text-gray-800">Rooms</h1>
           <p class="mb-4">Below are the Rooms ,Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New
+              
+                </a> to Add New, to Update Click
+
+            <a href="#" data-toggle="modal" data-target="#UpdateRooms">
+                  Here
+                </a>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -308,7 +313,7 @@ mysqli_close($con);
               <form class="user" method="POST"  action="insert.php">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-				  <select name="br" >
+				  <select name="br">
                      <?php
    $con=mysqli_connect('localhost','root','','timetable');
 
@@ -360,7 +365,12 @@ $result = mysqli_query($con,$query);
           <h1 class="h3 mb-2 text-gray-800">Buildings</h1>
           <p class="mb-4">Below are the Building ,Click <a href="#" data-toggle="modal" data-target="#insertBuildings">
                   Here
-                </a> to Add New
+                </a> to Add New, to Update Click
+
+            <a href="#" data-toggle="modal" data-target="#UpdateBuildings">
+                  Here
+                </a>
+                
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -468,14 +478,7 @@ mysqli_close($con);
              <div class="form-group">
                   <input type="text" class="form-control form-control-user" id="building" name="building" placeholder="Enter Building Name">
                 </div>
-              <!--   <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="seat" name="seat" placeholder="seats">
-                  </div>
-               
-                </div> -->
-
-
+  
           
             </div>
        
@@ -494,6 +497,129 @@ mysqli_close($con);
 
 </div>
 
+
+ <!-- Insertion Modal-->
+  <div class="modal fade" id="UpdateBuildings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Building</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST" action="update.php">
+         
+           <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="buildingid" name="buildingid" placeholder="Enter Building ID">
+                </div>
+
+
+             <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="ubuilding" name="ubuilding" placeholder="Enter Building Name">
+                </div>
+  
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+         <button class="btn btn-secondary"  type="submit" id="updateBuilding" name="updateBuilding" value="updateBuilding">Update
+         </button>
+        </div>
+      </form>
+      </div>
+    </div>
+  
+    </div>
+
+</div>
+
+
+
+ <!-- Insertion Modal-->
+  <div class="modal fade" id="UpdateRooms" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Room</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST"  action="update.php">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+
+        <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="roomid" name="roomid" placeholder="Enter Room ID">
+                </div>
+
+          <select name="ubr">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from building"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['id'];  ?>"><?php echo $row['name'];  ?></option>
+  <?php } ?>
+          </select>
+                  </div>
+                 
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="uroom" name="uroom" placeholder="Enter room">
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="useat" name="useat" placeholder="seats">
+                  </div>
+               
+                </div>
+
+
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+         <input class="btn btn-secondary"  type="submit" id="updateroom" name="updateroom" value="Update" >
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+    </div>
+
+
+<div>
 
 
       <!-- Footer -->

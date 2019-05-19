@@ -170,7 +170,7 @@
             </div>
             <div class="card-body">
 
-              <form class="user">
+              <form class="user" method="POST">
 
 
            <div class="form-group row">
@@ -184,6 +184,22 @@
               
                 </div>
 
+         <?php
+		 $connection=mysqli_connect('localhost','root','','timetable');
+
+$query = "Select teacher.name,teacher.eid,
+teacher.mob,teacher.address,
+department.department_name
+from teacher
+inner join department on teacher.department_id=department.department_id
+where teacher.teacher_id=27"; 
+
+$result = mysqli_query($connection,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){
+	?>
                
            
                 <div class="form-group row">
@@ -192,7 +208,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="name" class="form-control form-control-user">
+                         <input type="text"  name="nme" value="<?php echo $row['name'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -203,7 +219,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="email" class="form-control form-control-user">
+                        <input type="text"  name="eml" value="<?php echo $row['eid'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -214,7 +230,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="mobile" class="form-control form-control-user">
+                       <input type="text"  name="mbl"value="<?php echo $row['mob'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -225,7 +241,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="address" class="form-control form-control-user">
+                     <input type="text"  name="add" value="<?php echo $row['address'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -236,12 +252,14 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="dept" class="form-control form-control-user">
+                         <input type="text"  name="dep" value="<?php echo $row['department_name'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
-
-         
+<?php
+	
+}
+		 ?>
             
 
 
@@ -283,7 +301,7 @@
               <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Event Name">
+                    <input type="text" class="form-control form-control-user" id="exampleFirstName" value="name" placeholder="Event Name">
                   </div>
               
                 </div>

@@ -13,7 +13,7 @@ echo "<Tr>
 
 </tr>";
 
-$que=mysqli_query($con,"select *  from timeschedule where teacher_id='".$_SESSION['teacher_id']."'");
+//$que=mysqli_query($con,"select *  from timeschedule where teacher_id='".$_SESSION['teacher_id']."'");
 	while($res=mysqli_fetch_array($que))
 	{
 	echo "<tr>";

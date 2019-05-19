@@ -108,7 +108,7 @@ if(isset($_POST['insertDep'])) {
                 if($pass==$rpass)
                 {
     $sql = "INSERT INTO teacher (name,eid,password,mob,address,department_id)
-        VALUES ('".$nme."','".$eml."','".$cnt."','".$pass."','".$add."','".$did."')";
+        VALUES ('".$nme."','".$eml."','".$pass."','".$cnt."','".$add."','".$did."')";
    if (mysqli_query($conn, $sql)) {
      echo "<script type = 'text/javascript'>window.location.href = 'teacher.php'; </script> ";
 } else {

@@ -170,7 +170,7 @@
             </div>
             <div class="card-body">
 
-              <form class="user">
+              <form class="user" method="POST">
 
 
            <div class="form-group row">
@@ -184,7 +184,19 @@
               
                 </div>
 
-               
+                 <?php
+		 $connection=mysqli_connect('localhost','root','','timetable');
+
+$query = "Select student.name,student.eid, student.mob,student.address, department.department_name,
+semester.semester_name, student.dob,student.gender from student inner join department
+ on student.department_id=department.department_id inner join semester on semester.sem_id=student.sem_id where student.stu_id=1"; 
+
+$result = mysqli_query($connection,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){
+	?>
            
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
@@ -192,7 +204,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="name" class="form-control form-control-user">
+                       <input type="text"  name="nme" value="<?php echo $row['name'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -203,7 +215,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="email" class="form-control form-control-user">
+                        <input type="text"  name="nme" value="<?php echo $row['eid'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -214,7 +226,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="mobile" class="form-control form-control-user">
+                         <input type="text"  name="nme" value="<?php echo $row['mob'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -225,7 +237,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="address" class="form-control form-control-user">
+                         <input type="text"  name="nme" value="<?php echo $row['address'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -236,7 +248,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="dept" class="form-control form-control-user">
+                        <input type="text"  name="nme" value="<?php echo $row['department_name'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -247,7 +259,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="semester" class="form-control form-control-user">
+                         <input type="text"  name="nme" value="<?php echo $row['semester_name'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -258,7 +270,7 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="dob" class="form-control form-control-user">
+                         <input type="text"  name="nme" value="<?php echo $row['dob'];?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
@@ -269,11 +281,13 @@
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                     <h2  name="gender" class="form-control form-control-user">
+                       <input type="text"  name="nme" value="<?php if($row['gender']=="f"){ echo "female";}
+					   else { echo "male";}?>" class="form-control form-control-user" disabled>
                   </div>
               
                 </div>
-
+<?php 
+}?>
 
       
               </form>
@@ -313,26 +327,26 @@
               <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Event Name">
+                    <input type="text" class="form-control form-control-user" id="exampleFirstName"  placeholder="Event Name"  value="hello" disabled>
                   </div>
               
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Event Description">
+                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Event Description" disabled>
                 </div>
 
                 <div class="form-group">
-                 Date: <input type="date" name="eventDate" class="form-control form-control-user" id="exampleInputEmail">
+                 Date: <input type="date" name="eventDate" class="form-control form-control-user" id="exampleInputEmail" disabled>
                 </div>
 
                  <form class="user">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    Start Time: <input type="time" name="startTime" class="form-control form-control-user" id="exampleInputEmail">
+                    Start Time: <input type="time" name="startTime" class="form-control form-control-user" id="exampleInputEmail" disabled>
                   </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    End Time: <input type="time" name="endTime" class="form-control form-control-user" id="exampleInputEmail">
+                    End Time: <input type="time" name="endTime" class="form-control form-control-user" id="exampleInputEmail" disabled>
                   </div>
               
                 </div>

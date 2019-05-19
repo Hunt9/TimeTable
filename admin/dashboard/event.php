@@ -195,7 +195,10 @@
           <h1 class="h3 mb-2 text-gray-800">Events</h1>
           <p class="mb-4">Below are the Events. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New
+                </a> to Add New, to update Click 
+                <a href="#" data-toggle="modal" data-target="#updateEvent">
+                  Here
+                </a>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -248,10 +251,13 @@ $result = mysqli_query($connection,$query);
 
  // start a table tag in the HTML
 
+// <a name='clear'  id= 'clear'  value = $event_id
+//     data-target='#insertModal'>Update</a>
+
 while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
 
-//$rpid = $row["rp_id"];
-//$pid = $row["p_id"];
+
+   $event_id = $row["id"];
 
     echo "<tr>
     <td>". $row["id"]. "</td>
@@ -260,8 +266,18 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
     <td>" . $row["date"] . "</td>
     <td>" . $row["start_time"] . "</td>
     <td>" . $row["end_time"] . "</td>
-   
+
+
+
     </tr>";
+
+    // <td>"."  <a href='#' data-toggle='modal' data-target='#updateEvent'>
+    //               Update
+    //             </a>
+
+    //             "."</td>
+   
+    // </tr>";
  //$row['index'] the index here is a field name
 }
 
@@ -368,6 +384,78 @@ mysqli_close($connection);
     </div>
 
 </form>
+
+
+
+ <!-- Insertion Modal-->
+  <div class="modal fade" id="updateEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Event</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST" action="update.php">
+                <div class="form-group row">
+
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="evid" name="evid" placeholder="Event id">
+                  </div>
+
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="uename" name="uename" placeholder="Event Name">
+                  </div>
+              
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="uediscrip" name = "uediscrip" placeholder="Event Description">
+                </div>
+
+                <div class="form-group">
+                 Date: <input type="date" class="form-control form-control-user" id="uedate" name = "uedate">
+                </div>
+
+                 <form class="user">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    Start Time: <input type="time"  class="form-control form-control-user" id="uestime" name="uestime">
+                  </div>
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    End Time: <input type="time" class="form-control form-control-user" id="ueetime" name="ueetime">
+                  </div>
+              
+                </div>
+
+      
+              
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="submit" name="updateevent" id = "updateevent">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+</form>
+
 
 
 
