@@ -1,24 +1,3 @@
-<?php
-    if(isset($_POST['insertevent'])) {
-    $conn=mysqli_connect('localhost','root','','timetable');
-    $name=$_POST["ename"];
-    $discrip=$_POST["ediscrip"];
-    $date=$_POST["edate"];
-    $starttime=$_POST["estime"];
-    $endtime=$_POST["eetime"];
-    $sql = "INSERT INTO event (name,description,date,start_time,end_time)
-        VALUES ('".$name."','".$discrip."','".$date."','".$starttime."','".$endtime."')";
-    if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-  
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -345,7 +324,7 @@ mysqli_close($connection);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST">
+              <form class="user" method="POST" action="insert.php">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="ename" name="ename" placeholder="Event Name">

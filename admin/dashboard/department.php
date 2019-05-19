@@ -1,19 +1,3 @@
-	   <?php 
-	   	if(isset($_POST['insertDep'])) {
-	$conn=mysqli_connect('localhost','root','','timetable');
-		$dp=$_POST["dep"];
-		$sql = "INSERT INTO department (department_name)
-        VALUES ('".$dp."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-	}
-	   ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -216,7 +200,7 @@ mysqli_close($conn);
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Time Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -295,7 +279,7 @@ mysqli_close($con);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Insert New Time Table</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Department</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -312,7 +296,7 @@ mysqli_close($con);
               <!--<form class="user" method="POST" action="">-->
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-			<form class="main" method="POST" action="">
+			<form class="main" method="POST" action="insert.php">
                     <input type="text" class="form-control form-control-user" id="dep"  name="dep" placeholder="Department Name">
 						   
 

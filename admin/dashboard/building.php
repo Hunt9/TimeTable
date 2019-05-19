@@ -1,3 +1,43 @@
+<?php
+  	if(isset($_POST['insertBr'])) {
+		$conn=mysqli_connect('localhost','root','','timetable');
+		$br=$_POST["br"];
+		$room=$_POST["room"];
+		$seat=$_POST["seat"];
+		$sql = "INSERT INTO room (name,seats,building_id)
+        VALUES ('".$room."','".$seat."','".$br."')";
+		if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+
+	
+	}
+
+?>
+<?php
+
+  if(isset($_POST['insertBuiliding'])) {
+    $conn=mysqli_connect('localhost','root','','timetable');
+    $building =$_POST["building"];
+
+    $sql = "INSERT INTO building (name)
+        VALUES ('".$building."')";
+    if (mysqli_query($conn, $sql)) {
+ //   echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+
+  
+  }
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,15 +76,15 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Student Dashboard</div>
+        <div class="sidebar-brand-text mx-3">Admin Panel</div>
       </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
     
-      <!-- Nav Item - Tables -->
-      <li class="nav-item active">
+     <!-- Nav Item - Tables -->
+      <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Time Table</span></a>
@@ -53,21 +93,55 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
+
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="event.php">
+        <a class="nav-link" href="department.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>Event</span></a>
+          <span>Department</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
+
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="profile.php">
+        <a class="nav-link" href="subject.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>Profile</span></a>
+          <span>Subject</span></a>
+      </li>
+
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="teacher.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Teacher</span></a>
+      </li>
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item active">
+        <a class="nav-link" href="br.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Building & Rooms</span></a>
+      </li>
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="event.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Event</span></a>
       </li>
 
       <!-- Divider -->
@@ -96,7 +170,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -105,7 +179,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form>-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -136,7 +210,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Student</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="img/admin.jpg">
               </a>
               <!-- Dropdown - User Information -->
@@ -158,37 +232,50 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
-          <p class="mb-4">Below are the Schedules for Subjects, Teachers, Events and Rooms.
+          <h1 class="h3 mb-2 text-gray-800">Rooms</h1>
+          <p class="mb-4">Below are the Rooms ,Click <a href="#" data-toggle="modal" data-target="#insertModal">
+                  Here
+                </a> to Add New
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Time Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Rooms</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-
-                       <th>Normal Timing</th>
-
-
-<?php
-
-
-$connection=mysqli_connect('localhost','root','','timetable');
-
+					<th>ID</th>
+                      <th>Room</th>
+                      <th>Seat</th>
+                      <th>Building</th>
+                      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+										<th>ID</th>
+                         <th>Room</th>
+                      <th>Seat</th>
+                      <th>Building</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                 
+                           <?php
+					$con=mysqli_connect('localhost','root','','timetable');
 
 function getData()
 {
     
-$connection=mysqli_connect('localhost','root','','timetable');
+$con=mysqli_connect('localhost','root','','timetable');
 
-$query = "SELECT normal_time FROM timeslot"; 
 
-$result = mysqli_query($connection,$query);
+$query = "Select room.id,room.name as rm,room.seats,building.name from room INNER JOIN building on room.building_id=building.id"; 
+
+$result = mysqli_query($con,$query);
 
  // start a table tag in the HTML
 
@@ -197,196 +284,33 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
 //$rpid = $row["rp_id"];
 //$pid = $row["p_id"];
 
-    echo "
-    <th>". $row["normal_time"]. "</th>
-   ";
+    echo "<tr>
+    <td>". $row["id"]. "</td>
+	 <td>". $row["rm"]. " </td>
+	  <td>". $row["seats"]. " </td>
+	 <td>". $row["name"]. " </td>
+	 
+
+   
+   
+    </tr>";
  //$row['index'] the index here is a field name
 }
 
  //Close the table in HTML
 
 
-mysqli_close($connection);
+mysqli_close($con);
 }
 
     getData();
 
 
  
-mysqli_close($connection);
+mysqli_close($con);
 
  
-?>
-
-</tr>
-
-
-
-                 
-                  </thead>
-
-
-
-                               <thead>
-                    <tr>
-
-                       <th>Friday Timing</th>
-
-
-<?php
-
-
-$connection=mysqli_connect('localhost','root','','timetable');
-
-
-function getData1()
-{
-    
-$connection=mysqli_connect('localhost','root','','timetable');
-
-$query = "SELECT friday_time FROM timeslot"; 
-
-$result = mysqli_query($connection,$query);
-
- // start a table tag in the HTML
-
-while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-
-//$rpid = $row["rp_id"];
-//$pid = $row["p_id"];
-
-    echo "
-    <th>". $row["friday_time"]. "</th>
-   ";
- //$row['index'] the index here is a field name
-}
-
- //Close the table in HTML
-
-
-mysqli_close($connection);
-}
-
-    getData1();
-
-
- 
-mysqli_close($connection);
-
- 
-?>
-
-</tr>
-
-      
-                  </thead>
-              
-
-
-
-                  <tbody>
-                    <tr>
-                      <td><h4>Monday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                  </tbody>
-
-                      <tr>
-                      <td><h4>Tuesday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                  
-
-                      <tr>
-                      <td><h4>Wednesday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                      <tr>
-                      <td><h4>Thursday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                      <tr>
-                      <td><h4>Friday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                      <tr>
-                      <td><h4>Saturday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-
-                      <tr>
-                      <td><h4>Sunday</h4></td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    </tr>
-                   
+?> 
 
                   </tbody>
                 </table>
@@ -407,7 +331,7 @@ mysqli_close($connection);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Insert New Time Table</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Rooms</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -421,30 +345,36 @@ mysqli_close($connection);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user">
+              <form class="user" method="POST">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+				  <select name="br" class="form-control form-control-user>
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from building"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+	  <option value="<?php echo $row['id'];  ?>"><?php echo $row['name'];  ?></option>
+  <?php } ?>
+					</select>
                   </div>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
-                  </div>
+                 
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                  <input type="text" class="form-control form-control-user" id="room" name="room" placeholder="Enter room">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                    <input type="text" class="form-control form-control-user" id="seat" name="seat" placeholder="seats">
                   </div>
-                  <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
-                  </div>
-                </div>
                
-      
-          
-              </form>
+                </div>
+
 
           
             </div>
@@ -453,15 +383,154 @@ mysqli_close($connection);
 
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-          <a class="btn btn-primary" href="login.html">Insert</a>
+         <input class="btn btn-secondary"  type="submit" id="insertBr" name="insertBr" value="Insert" >
         </div>
+		  </form>
       </div>
     </div>
   </div>
     </div>
 
 
+<div>
+  
+   <div class="container-fluid">
 
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Buildings</h1>
+          <p class="mb-4">Below are the Building ,Click <a href="#" data-toggle="modal" data-target="#insertBuildings"></a>
+                  Here
+                </a> to Add New
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Buildings</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+          <th>ID</th>
+                      <th>Name</th>
+                      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                    <th>ID</th>
+                         <th>Name</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                 
+                           <?php
+          $con=mysqli_connect('localhost','root','','timetable');
+
+function getData1()
+{
+    
+$con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select id,name from building"; 
+
+$result = mysqli_query($con,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+//$rpid = $row["rp_id"];
+//$pid = $row["p_id"];
+
+    echo "<tr>
+    <td>". $row["id"]. "</td>
+   <td>". $row["name"]. " </td>
+   
+
+   
+   
+    </tr>";
+ //$row['index'] the index here is a field name
+}
+
+ //Close the table in HTML
+
+
+mysqli_close($con);
+}
+
+    getData1();
+
+
+ 
+mysqli_close($con);
+
+ 
+?> 
+       </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+
+
+
+
+ <!-- Insertion Modal-->
+  <div class="modal fade" id="insertBuildings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Building</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST">
+         
+             <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="building" name="building" placeholder="Enter Building Name">
+                </div>
+              <!--   <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="seat" name="seat" placeholder="seats">
+                  </div>
+               
+                </div> -->
+
+
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+         <button class="btn btn-secondary"  type="submit" id="insertBuiliding" name="insertBuiliding" value="insertBuiliding">Insert
+         </button>
+        </div>
+      </form>
+      </div>
+    </div>
+  
+    </div>
 
 
 

@@ -1,22 +1,3 @@
-<?php
-  	if(isset($_POST['insertSub'])) {
-		$conn=mysqli_connect('localhost','root','','timetable');
-		$did=$_POST["dep"];
-		$sid=$_POST["sem"];
-		$sub=$_POST["sub"];
-		$sql = "INSERT INTO subject (subject_name,sem_id,department_id)
-        VALUES ('".$sub."','".$sid."','".$did."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-	
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -219,7 +200,7 @@ mysqli_close($conn);
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Time Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Subjects</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -317,7 +298,7 @@ mysqli_close($con);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Insert New Time Table</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Subject</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -331,10 +312,10 @@ mysqli_close($con);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST" action="">
+              <form class="user" method="POST" action="insert.php">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-				   <select name="sem">
+				   <select name="sem" >
 				   <?php
    $con=mysqli_connect('localhost','root','','timetable');
 

@@ -1,26 +1,3 @@
-   <?php 
-	   	if(isset($_POST['insertTime'])) {
-	$conn=mysqli_connect('localhost','root','','timetable');
-		$sub=$_POST["sub"];
-		$tmid=$_POST["time"];
-		$dte=$_POST["dte"];
-		$day=$_POST["day"];
-		$rid=$_POST["rid"];
-		$tid=$_POST["tid"];
-		//echo $tid;
-		$eve="";
-		$sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
-        VALUES ('".$sub."','".$tmid."','".$dte."','".$day."','".$rid."','".$tid."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-	}
-	   ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -359,7 +336,7 @@ mysqli_close($con);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST" action="">
+              <form class="user" method="POST" action="insert.php">
                 <div class="form-group row">
 				<select  class="btn btn-secondary btn-sm dropdown-toggle" id="sub" name="sub">
                      <?php

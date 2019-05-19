@@ -1,33 +1,3 @@
-<?php
- 	if(isset($_POST['insertT'])) {
-	$conn=mysqli_connect('localhost','root','','timetable');
-		$nme=$_POST["nme"];
-		$eml=$_POST["eml"];
-		$cnt=$_POST["contact"];
-		$pass=$_POST["pass"];
-				$rpass=$_POST["rpass"];
-				$add=$_POST["add"];
-								$did=$_POST["dep"];
-								if($pass==$rpass)
-								{
-		$sql = "INSERT INTO teacher (name,eid,password,mob,address,department_id)
-        VALUES ('".$nme."','".$eml."','".$cnt."','".$pass."','".$add."','".$did."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-								}
-								else
-								{
-									 echo "Wrong password ";
-								}
-
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -230,7 +200,7 @@ mysqli_close($conn);
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Time Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Teachers</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -328,7 +298,7 @@ mysqli_close($con);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Insert New Time Table</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Teacher</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -342,7 +312,7 @@ mysqli_close($con);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST">
+              <form class="user" method="POST" action="insert.php">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="nme" name="nme" placeholder="Name">

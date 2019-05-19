@@ -1,22 +1,3 @@
-<?php
-  	if(isset($_POST['insertBr'])) {
-		$conn=mysqli_connect('localhost','root','','timetable');
-		$br=$_POST["br"];
-		$room=$_POST["room"];
-		$seat=$_POST["seat"];
-		$sql = "INSERT INTO room (name,seats,building_id)
-        VALUES ('".$room."','".$seat."','".$br."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-	
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,15 +192,15 @@ mysqli_close($conn);
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
-          <p class="mb-4">Below are the Building and Room ,Click <a href="#" data-toggle="modal" data-target="#insertModal">
+          <h1 class="h3 mb-2 text-gray-800">Rooms</h1>
+          <p class="mb-4">Below are the Rooms ,Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
                 </a> to Add New
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Time Table</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Rooms</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -310,7 +291,7 @@ mysqli_close($con);
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Insert New Time Table</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Rooms</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -324,10 +305,10 @@ mysqli_close($con);
    
                 <h1 class="h4 text-gray-900 mb-4"> </h1>
               </div>
-              <form class="user" method="POST" action="#">
+              <form class="user" method="POST"  action="insert.php">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-				  <select name="br">
+				  <select name="br" >
                      <?php
    $con=mysqli_connect('localhost','root','','timetable');
 
@@ -353,10 +334,7 @@ $result = mysqli_query($con,$query);
                   </div>
                
                 </div>
-               
-      
-          
-            
+
 
           
             </div>
@@ -374,9 +352,147 @@ $result = mysqli_query($con,$query);
     </div>
 
 
+<div>
+  
+   <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Buildings</h1>
+          <p class="mb-4">Below are the Building ,Click <a href="#" data-toggle="modal" data-target="#insertBuildings">
+                  Here
+                </a> to Add New
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Buildings</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+          <th>ID</th>
+                      <th>Name</th>
+                      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                    <th>ID</th>
+                         <th>Name</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                 
+                           <?php
+          $con=mysqli_connect('localhost','root','','timetable');
+
+function getData1()
+{
+    
+$con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select id,name from building"; 
+
+$result = mysqli_query($con,$query);
+
+ // start a table tag in the HTML
+
+while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+//$rpid = $row["rp_id"];
+//$pid = $row["p_id"];
+
+    echo "<tr>
+    <td>". $row["id"]. "</td>
+   <td>". $row["name"]. " </td>
+   
+
+   
+   
+    </tr>";
+ //$row['index'] the index here is a field name
+}
+
+ //Close the table in HTML
+
+
+mysqli_close($con);
+}
+
+    getData1();
+
+
+ 
+mysqli_close($con);
+
+ 
+?> 
+       </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
 
 
 
+
+ <!-- Insertion Modal-->
+  <div class="modal fade" id="insertBuildings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Insert New Building</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST" action="insert.php">
+         
+             <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="building" name="building" placeholder="Enter Building Name">
+                </div>
+              <!--   <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="seat" name="seat" placeholder="seats">
+                  </div>
+               
+                </div> -->
+
+
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+         <button class="btn btn-secondary"  type="submit" id="insertBuiliding" name="insertBuiliding" value="insertBuiliding">Insert
+         </button>
+        </div>
+      </form>
+      </div>
+    </div>
+  
+    </div>
+
+</div>
 
 
 
