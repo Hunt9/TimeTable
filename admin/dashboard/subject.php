@@ -195,7 +195,11 @@
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
           <p class="mb-4">Below are the  Subjects Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New
+                </a> to Add New, to Update Click 
+
+                <a href="#" data-toggle="modal" data-target="#updateModal">
+                  Here
+                </a>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -377,6 +381,93 @@ $result = mysqli_query($con,$query);
 
 
 
+
+<!-- Insertion Modal-->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Subject</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST" action="update.php">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+
+           <select name="usem" >
+           <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from semester"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+                    
+            <option value="<?php echo $row['sem_id'];  ?>"><?php echo $row['semester_name'];  ?></option>
+  <?php } ?>
+           </select>
+                  </div>
+                  <div class="col-sm-6">
+                    <select name="udep">
+           <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from department"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['department_id'];  ?>"><?php echo $row['department_name'];  ?></option>
+  <?php } ?>
+          </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="sid" name="sid" placeholder="Enter Subject ID">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="usub" name="usub" placeholder="Enter Subject">
+                </div>
+                <div class="form-group row">
+                  
+                </div>
+               
+      
+          
+             
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+         <input class="btn btn-secondary"  type="submit" id="updateSub" name="updateSub" value="Update" >
+       </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
 
 
 

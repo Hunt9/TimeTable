@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2019 at 03:52 PM
+-- Generation Time: May 13, 2019 at 06:58 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -53,6 +53,14 @@ CREATE TABLE `building` (
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `building`
+--
+
+INSERT INTO `building` (`id`, `name`) VALUES
+(1, 'building1'),
+(2, 'building2');
+
 -- --------------------------------------------------------
 
 --
@@ -94,7 +102,10 @@ INSERT INTO `department` (`department_id`, `department_name`) VALUES
 (13, 'B.tech'),
 (14, 'M.Tech'),
 (15, 'BCA'),
-(16, 'MCA');
+(16, 'MCA'),
+(20, 'test'),
+(21, 'testing'),
+(22, 'dep');
 
 -- --------------------------------------------------------
 
@@ -131,6 +142,15 @@ CREATE TABLE `room` (
   `building_id` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`id`, `name`, `seats`, `building_id`) VALUES
+(1, 'room1', 30, 2),
+(2, 'room1', 25, 1),
+(3, 'room3', 20, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -140,7 +160,7 @@ CREATE TABLE `room` (
 CREATE TABLE `semester` (
   `sem_id` int(11) NOT NULL,
   `semester_name` varchar(20) DEFAULT NULL,
-  `department_id` int(11) NOT NULL
+  `department_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -227,7 +247,9 @@ INSERT INTO `subject` (`subject_id`, `subject_name`, `sem_id`, `department_id`) 
 (11, 'Joomla', 12, 16),
 (12, 'Mgento', 1, 13),
 (13, 'Data Structure', 1, 13),
-(14, 'Discrete', 1, 13);
+(14, 'Discrete', 1, 13),
+(18, 'testingSub', 2, 16),
+(19, 'testingSubject', 2, 15);
 
 -- --------------------------------------------------------
 
@@ -242,29 +264,18 @@ CREATE TABLE `teacher` (
   `password` varchar(10) NOT NULL,
   `mob` bigint(20) NOT NULL,
   `address` varchar(1000) NOT NULL,
-  `department_id` int(11) NOT NULL,
-  `sem_id` int(11) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `date` date NOT NULL,
-  `sub_id` int(9) NOT NULL
+  `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teacher`
 --
 
-INSERT INTO `teacher` (`teacher_id`, `name`, `eid`, `password`, `mob`, `address`, `department_id`, `sem_id`, `status`, `date`, `sub_id`) VALUES
-(16, 'Kamal', 'kamal@gmail.com', 'kamal', 9873214569, 'Gurgoan', 13, 1, 'ON', '2016-05-22', 0),
-(17, 'Manu', 'manu@gmail.com', 'manu', 9874563215, 'Noida', 13, 2, 'ON', '2016-05-22', 0),
-(18, 'Rahul', 'rahul@gmail.com', 'rahul', 6547893214, 'Gurgoan', 13, 3, 'OFF', '2016-05-22', 0),
-(19, 'Ravi', 'ravi@yahoo.com', 'ravi', 9874123654, 'Shimla', 13, 4, 'ON', '2016-05-22', 0),
-(20, 'Ali', 'ali@gmail.com', 'ali', 7456981236, 'Madras', 14, 6, 'OFF', '2016-05-22', 0),
-(21, 'Sanjay', 'sanjay@gmail.com', 'sanjay', 9874123658, 'Mohali', 15, 7, 'OFF', '2016-05-22', 0),
-(22, 'Himanshu', 'himanshu@yahoo.com', 'himanshu', 6547893214, 'Noida', 15, 8, 'ON', '2016-05-22', 0),
-(23, 'Deepak', 'deepak@gmail.com', 'deepak', 3214569878, 'Manali', 15, 9, 'ON', '2016-05-22', 0),
-(24, 'Jassi', 'jassi@gmail.com', 'jassi', 9876532145, 'Punjab', 15, 10, 'ON', '2016-05-22', 0),
-(25, 'Shavir', 'shavir@gmail.com', 'shavir', 6541239874, 'Phagwara', 16, 11, 'OFF', '2016-05-22', 0),
-(26, 'Sandeep', 'sandeep@yahoo.com', 'sandeep', 9856231478, 'Noida', 16, 12, 'OFF', '2016-05-22', 0);
+INSERT INTO `teacher` (`teacher_id`, `name`, `eid`, `password`, `mob`, `address`, `department_id`) VALUES
+(27, 'ali', 'ali@gmail.com', '0312222222', 1234, 'street123', 13),
+(28, 'asad', 'asad@gmail.com', '0312222221', 456, 'street12', 14),
+(29, 'saba', 'saba@gmail.com', '0333212222', 789, 'street789', 14),
+(30, 'sana', 'sana@gmail.com', '0312222213', 1234, 'street12', 14);
 
 -- --------------------------------------------------------
 
@@ -274,37 +285,21 @@ INSERT INTO `teacher` (`teacher_id`, `name`, `eid`, `password`, `mob`, `address`
 
 CREATE TABLE `timeschedule` (
   `timeschedule_id` int(11) NOT NULL,
-  `department_name` varchar(20) DEFAULT NULL,
-  `semester_name` varchar(20) DEFAULT NULL,
-  `subject_name` varchar(20) DEFAULT NULL,
   `subject_id` int(9) NOT NULL,
-  `time` varchar(20) DEFAULT NULL,
   `time_id` int(9) NOT NULL,
   `date` varchar(40) DEFAULT NULL,
   `day` int(1) NOT NULL,
-  `type` int(2) NOT NULL,
   `room_id` int(9) NOT NULL,
-  `event_id` int(9) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
-  `dept_id` int(9) NOT NULL
+  `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timeschedule`
 --
 
-INSERT INTO `timeschedule` (`timeschedule_id`, `department_name`, `semester_name`, `subject_name`, `subject_id`, `time`, `time_id`, `date`, `day`, `type`, `room_id`, `event_id`, `teacher_id`, `dept_id`) VALUES
-(1, '13', '1', '1', 0, '01:00', 0, '2016-12-01', 0, 0, 0, 0, 16, 0),
-(2, '13', '2', '2', 0, '02:00', 0, '2016-12-01', 0, 0, 0, 0, 17, 0),
-(3, '13', '3', '3', 0, '03:00', 0, '2016-12-01', 0, 0, 0, 0, 18, 0),
-(4, '13', '4', '4', 0, '04:00', 0, '2016-12-01', 0, 0, 0, 0, 19, 0),
-(5, '14', '6', '6', 0, '02:00', 0, '2016-12-01', 0, 0, 0, 0, 16, 0),
-(6, '15', '7', '7', 0, '03:00', 0, '2016-12-02', 0, 0, 0, 0, 16, 0),
-(7, '15', '8', '8', 0, '03:00', 0, '2016-12-02', 0, 0, 0, 0, 17, 0),
-(8, '16', '11', '11', 0, '10:00', 0, '2016-12-01', 0, 0, 0, 0, 16, 0),
-(9, '13', '1', '12', 0, '09:00', 0, '2016-12-02', 0, 0, 0, 0, 16, 0),
-(10, '13', '1', '13', 0, '02:00', 0, '2016-11-02', 0, 0, 0, 0, 16, 0),
-(11, '13', '1', '14', 0, '04:00', 0, '2016-11-03', 0, 0, 0, 0, 16, 0);
+INSERT INTO `timeschedule` (`timeschedule_id`, `subject_id`, `time_id`, `date`, `day`, `room_id`, `teacher_id`) VALUES
+(17, 1, 1, '2019-05-01', 1, 2, 27),
+(18, 2, 2, '2019-05-02', 2, 1, 28);
 
 -- --------------------------------------------------------
 
@@ -406,8 +401,7 @@ ALTER TABLE `subject`
 --
 ALTER TABLE `teacher`
   ADD PRIMARY KEY (`teacher_id`),
-  ADD UNIQUE KEY `eid` (`eid`),
-  ADD KEY `sub_id` (`sub_id`);
+  ADD UNIQUE KEY `eid` (`eid`);
 ALTER TABLE `teacher` ADD FULLTEXT KEY `name` (`name`);
 
 --
@@ -418,9 +412,7 @@ ALTER TABLE `timeschedule`
   ADD KEY `teacher_id` (`teacher_id`),
   ADD KEY `subject_id` (`subject_id`),
   ADD KEY `time_id` (`time_id`),
-  ADD KEY `room_id` (`room_id`),
-  ADD KEY `event_id` (`event_id`),
-  ADD KEY `dept_id` (`dept_id`);
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `timeslot`
@@ -442,7 +434,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `building`
 --
 ALTER TABLE `building`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `contactus`
@@ -454,7 +446,7 @@ ALTER TABLE `contactus`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `event`
@@ -466,13 +458,13 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `sem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `sem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -484,19 +476,19 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `timeschedule`
 --
 ALTER TABLE `timeschedule`
-  MODIFY `timeschedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `timeschedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

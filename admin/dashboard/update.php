@@ -92,14 +92,14 @@
     // $sql = "INSERT INTO teacher (name,eid,password,mob,address,department_id)
     //     VALUES ('".$nme."','".$eml."','".$cnt."','".$pass."','".$add."','".$did."')";
 
-    $sql = "UPDATE teacher set name = '$nme', eid = '$eml',password = '$pass',mob = '$cnt',address = '$add',department_id = $did WHERE id = $tid";
+    $sql = "UPDATE teacher set name = '$nme', eid = '$eml',password = '$pass',mob = '$cnt',address = '$add',department_id = $did WHERE teacher_id = $tid";
 
 
 
    if (mysqli_query($conn, $sql)) {
      echo "<script type = 'text/javascript'>window.location.href = 'teacher.php'; </script> ";
 } else {
-     echo "<script type='text/javascript'>alert('Insertion Failed! (Server Error)')</script>";
+     echo "<script type='text/javascript'>alert('Updation Failed! (Server Error)')</script>";
     // echo "<script type = 'text/javascript'>window.location.href = 'teacher.php'; </script> ";
 }
 
@@ -111,6 +111,31 @@
                 }
 
   }
+
+
+
+//====================== Update Subject ==============================
+
+   if(isset($_POST['updateSub'])) {
+    $sid=$_POST["sid"];
+    $did=$_POST["udep"];
+    $semid=$_POST["usem"];
+    $sub=$_POST["usub"];
+
+   $sql = "UPDATE subject set subject_name = '$sub' , sem_id = $semid ,department_id = $did WHERE
+           ";
+
+    // $sql = "INSERT INTO subject (subject_name,sem_id,department_id)
+    //     VALUES ('".$sub."','".$sid."','".$did."')";
+    if (mysqli_query($conn, $sql)) {
+     echo "<script type = 'text/javascript'>window.location.href = 'subject.php'; </script> ";
+} else {
+     echo "<script type='text/javascript'>alert('Updation Failed! (Server Error)')</script>";
+     echo "<script type = 'text/javascript'>window.location.href = 'subject.php'; </script> ";
+}
+
+}
+
 
 
 
