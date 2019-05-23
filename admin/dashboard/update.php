@@ -161,4 +161,85 @@ if(isset($_POST['updateDep'])) {
 mysqli_close($conn);
 
 
+//====================== Update TimeTables ==============================
+
+ if(isset($_POST['insertTime'])) {
+    $sub=$_POST["sub"];
+    $tmid=$_POST["time"];
+    // $dte=$_POST["dte"];
+    $day=$_POST["day"];
+    $rid=$_POST["rid"];
+    $tid=$_POST["tid"];
+    //echo $tid;
+
+if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available'))
+{
+
+
+    $sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
+        VALUES ('".$sub."','".$tmid."','2019-08-08','".$day."','".$rid."','".$tid."')";
+    if (mysqli_query($conn, $sql)) {
+     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+} else {
+     echo "<script type='text/javascript'>alert('Insertion Failed! (Server Error)')</script>";
+     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+}
+
+}else{
+
+
+ echo "<script type='text/javascript'>alert('Time Slot Already Assigned')</script>";
+      echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";    
+
+}
+
+}
+
+function checkTeacher($tmid,$day,$rid,$tid){
+
+    $conn=mysqli_connect('localhost','root','','timetable');
+    
+    $result = mysqli_query($conn,
+        "SELECT * FROM timeschedule WHERE 
+         time_id = $tmid and 
+         day = $day and 
+         -- room_id = $rid and 
+         teacher_id = $tid ");
+
+    if(mysqli_fetch_array($result) != false)
+    {    mysqli_close($conn);
+
+        return 'Assigned';
+    }else{
+        mysqli_close($conn);
+
+    return 'Available';
+}
+
+}
+
+
+
+
+function checkRoom($tmid,$day,$rid){
+        $conn=mysqli_connect('localhost','root','','timetable');
+    
+    $result = mysqli_query($conn,
+        "SELECT * FROM timeschedule WHERE 
+         time_id = $tmid and 
+         day = $day and 
+         room_id = $rid");
+
+    if(mysqli_fetch_array($result) != false)
+    {    mysqli_close($conn);
+
+        return 'Assigned';
+    }else{
+        mysqli_close($conn);
+
+    return 'Available';
+}
+}
+
+
   ?>

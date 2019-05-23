@@ -242,7 +242,7 @@ FROM subject
 INNER join department ON
 subject.department_id=department.department_id
 inner join semester
-on subject.department_id=department.department_id"; 
+on subject.sem_id=semester.sem_id"; 
 
 $result = mysqli_query($con,$query);
 

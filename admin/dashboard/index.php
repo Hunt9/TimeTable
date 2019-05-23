@@ -195,7 +195,11 @@
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
           <p class="mb-4">Below are the Schedules for Subjects, Teachers, Events and Rooms. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New
+                </a> to Add New, to Update 
+
+                <a href="#" data-toggle="modal" data-target="#updateModal">
+                  Here
+                </a>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -207,36 +211,35 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Subject</th>
+                      <th>ID</th> 
+                     <th>Subject</th>
                       <th>Semester</th>
                       <th>Department</th>
                       <th>Normal Time</th>
                       <th>Friday Time</th>
-                      <th>Date</th>
-					   <th>Day</th>
-					   <th>Room</th>
-					   <th>Building</th>
+					            <th>Day</th>
+					            <th>Room</th>
+					             <th>Building</th>
 					  
-					     <th>Teacher</th>
+					              <th>Teacher</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>ID</th> 
                       <th>Subject</th>
                       <th>Semester</th>
                       <th>Department</th>
                       <th>Normal Time</th>
                       <th>Friday Time</th>
-                      <th>Date</th>
-					   <th>Day</th>
-					   	   <th>Room</th>
-					   <th>Building</th>
+					           <th>Day</th>
+					   	        <th>Room</th>
+					            <th>Building</th>
 	
-					     <th>Teacher</th>
+					            <th>Teacher</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
                         <?php
 					$con=mysqli_connect('localhost','root','','timetable');
 
@@ -267,14 +270,13 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
     echo "<tr>
     <td>". $row["timeschedule_id"]. "</td>
 	 <td>". $row["subject_name"]. " </td>
-	 <td>". $row["semester_name"]. " </td>
+	 <td>". $row["semester_name"]. "  </td>
+     <td>". $row["department_name"]. "  </td>
 	  <td>". $row["normal_time"]. " </td>
 	   <td>". $row["friday_time"]. " </td>
-	    <td>". $row["date"]. " </td>
 		<td>". $row["day"]. " </td>
 		<td>". $row["room"]. " </td>
 		<td>". $row["building"]. " </td>
-			
 								<td>". $row["tchr"]. " </td>
 
 
@@ -300,7 +302,6 @@ mysqli_close($con);
 
  
 ?> 
-                    </tr>
                    
 
                   </tbody>
@@ -338,6 +339,8 @@ mysqli_close($con);
               </div>
               <form class="user" method="POST" action="insert.php">
                 <div class="form-group row">
+                  Select Subject
+                  <div class="col-sm-6">
 				<select  class="btn btn-secondary btn-sm dropdown-toggle" id="sub" name="sub">
                      <?php
    $con=mysqli_connect('localhost','root','','timetable');
@@ -349,7 +352,7 @@ FROM subject
 INNER join department ON
 subject.department_id=department.department_id
 inner join semester
-on subject.department_id=department.department_id"; 
+on subject.sem_id=semester.sem_id"; 
 
 $result = mysqli_query($con,$query);
   while($row = mysqli_fetch_array($result)) {
@@ -365,7 +368,8 @@ $result = mysqli_query($con,$query);
                     <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
                   </div>-->
                 </div>
-                <div class="form-group">
+              </div>
+                <div class="form-group">Time Slot
                 <select  class="btn btn-secondary btn-sm dropdown-toggle" name="time">
                      <?php
    $con=mysqli_connect('localhost','root','','timetable');
@@ -382,14 +386,26 @@ $result = mysqli_query($con,$query);
 					</select>
                 </div>
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
+                <!--   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="date" class="form-control form-control-user" id="dte" name="dte" placeholder="Date">
-                  </div>
+                  </div> -->
+                  Select Day
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="day" name="day" placeholder="Day">
+                  <select  class="btn btn-secondary btn-sm dropdown-toggle" id="day" name="day">
+                    
+    <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                            <option value="7">Sunday</option>
+          </select>
+
                   </div>
                 </div>
                <div class="form-group row">
+                Select Room
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <select  class="btn btn-secondary btn-sm dropdown-toggle" id="rid" name="rid">
                      <?php
@@ -407,8 +423,12 @@ $result = mysqli_query($con,$query);
 					</select>
                   </div>
                   
+
+
+
                 </div>
             <div class="form-group row">
+              Select Teacher
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <select  class="btn btn-secondary btn-sm dropdown-toggle" id="tid" name="tid">
 					 <?php
@@ -443,6 +463,159 @@ $result = mysqli_query($con,$query);
     </div>
 
  </form>
+
+
+
+
+
+
+  <!-- Updation Modal-->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Time Table</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+   
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <form class="user" method="POST" action="update.php">
+
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="tsid" name="tsid" placeholder="Enter Time Shedule ID">
+                </div>
+
+                <div class="form-group row">
+                  Select Subject
+                  <div class="col-sm-6">
+        <select  class="btn btn-secondary btn-sm dropdown-toggle" id="usub" name="usub">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select subject.subject_id,subject.subject_name,
+department.department_name,semester.semester_name
+FROM subject
+INNER join department ON
+subject.department_id=department.department_id
+inner join semester
+on subject.sem_id=semester.sem_id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['subject_id'];  ?>"><?php echo $row['subject_name']."[".$row['department_name']."]".":".$row['semester_name'];  ?></option>
+  <?php } ?>
+          </select>
+
+                </div>
+              </div>
+                <div class="form-group">Time Slot
+                <select  class="btn btn-secondary btn-sm dropdown-toggle" name="utime">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select * from timeslot"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['id'];  ?>"><?php echo $row['normal_time']."[".$row['friday_time']."]";  ?></option>
+  <?php } ?>
+          </select>
+                </div>
+                <div class="form-group row">
+                <!--   <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="date" class="form-control form-control-user" id="dte" name="dte" placeholder="Date">
+                  </div> -->
+                  Select Day
+                  <div class="col-sm-6">
+                  <select  class="btn btn-secondary btn-sm dropdown-toggle" id="uday" name="uday">
+                    
+    <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                            <option value="7">Sunday</option>
+          </select>
+
+                  </div>
+                </div>
+               <div class="form-group row">
+                Select Room
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <select  class="btn btn-secondary btn-sm dropdown-toggle" id="urid" name="urid">
+                     <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "Select room.id,room.name as rm,building.name from room INNER JOIN building on room.building_id=building.id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['id'];  ?>"><?php echo $row['rm']."[".$row['name']."]";  ?></option>
+  <?php } ?>
+          </select>
+                  </div>
+                  
+
+
+
+                </div>
+            <div class="form-group row">
+              Select Teacher
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <select  class="btn btn-secondary btn-sm dropdown-toggle" id="utid" name="utid">
+           <?php
+   $con=mysqli_connect('localhost','root','','timetable');
+
+
+$query = "SELECT teacher.teacher_id,teacher.name,department.department_name from teacher INNER JOIN department on department.department_id=teacher.department_id"; 
+
+$result = mysqli_query($con,$query);
+  while($row = mysqli_fetch_array($result)) {
+
+    ?>
+    <option value="<?php echo $row['teacher_id'];  ?>"><?php echo $row['name']."[".$row['department_name']."]";  ?></option>
+  <?php } ?>
+          </select>
+          </div></div>
+          
+             
+
+          
+            </div>
+       
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+             <input class="btn btn-secondary"  type="submit" id="updateTime" name="updateTime" value="Update" >
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+ </form>
+
+
 
 
 
