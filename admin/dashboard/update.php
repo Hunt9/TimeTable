@@ -123,7 +123,7 @@
     $sub=$_POST["usub"];
 
    $sql = "UPDATE subject set subject_name = '$sub' , sem_id = $semid ,department_id = $did WHERE
-           ";
+           subject_id = $sid";
 
     // $sql = "INSERT INTO subject (subject_name,sem_id,department_id)
     //     VALUES ('".$sub."','".$sid."','".$did."')";
@@ -132,6 +132,25 @@
 } else {
      echo "<script type='text/javascript'>alert('Updation Failed! (Server Error)')</script>";
      echo "<script type = 'text/javascript'>window.location.href = 'subject.php'; </script> ";
+}
+
+}
+
+
+
+//====================== Update Departments ==============================
+
+if(isset($_POST['updateDep'])) {
+    $did=$_POST["did"];
+    $dp=$_POST["udep"];
+
+    $sql = "UPDATE department set department_name = '$dp' WHERE department_id = $did";
+
+    if (mysqli_query($conn, $sql)) {
+     echo "<script type = 'text/javascript'>window.location.href = 'department.php'; </script> ";
+} else {
+     echo "<script type='text/javascript'>alert('Updation Failed! (Server Error)')</script>";
+     echo "<script type = 'text/javascript'>window.location.href = 'department.php'; </script> ";
 }
 
 }

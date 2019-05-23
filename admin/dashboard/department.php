@@ -195,7 +195,11 @@
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
           <p class="mb-4">Below are the Department. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New
+                </a> to Add New,to Update Click 
+
+                <a href="#" data-toggle="modal" data-target="#updateModal">
+                  Here
+                </a>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -271,6 +275,89 @@ mysqli_close($con);
 
       </div>
       <!-- End of Main Content -->
+
+
+
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Department</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="container">
+
+    <div class="container">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+  
+                <h1 class="h4 text-gray-900 mb-4"> </h1>
+              </div>
+              <!--<form class="user" method="POST" action="">-->
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+      <form class="main" method="POST" action="update.php">
+                    <input type="text" class="form-control form-control-user" id="did"  name="did" placeholder="Department ID">
+               
+
+           
+
+                  </div>
+
+                             <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="udep"  name="udep" placeholder="Department Name">
+               
+
+           
+
+                  </div>
+                 
+                </div>
+  
+          
+           <!-- </form>-->
+
+          
+            </div>
+      
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+          <input class="btn btn-secondary"  type="submit" id="updateDep" name="updateDep" value="Update" >
+        </div>
+      </div>
+
+
+   
+  </div>
+    </div>
+
+
+
+
+      <!-- Footer -->
+   
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+   </form> 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -351,6 +438,31 @@ mysqli_close($conn);*/
 
 
 	 
+  </div>
+    </div>
+
+
+
+
+
+                
+               
+               
+      
+          
+           <!-- </form>-->
+
+
+
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
+          <input class="btn btn-secondary"  type="submit" id="insertDep" name="insertDep" value="Add" >
+        </div>
+      </div>
+
+
+   
   </div>
     </div>
 
