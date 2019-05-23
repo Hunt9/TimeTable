@@ -163,30 +163,35 @@ mysqli_close($conn);
 
 //====================== Update TimeTables ==============================
 
- if(isset($_POST['insertTime'])) {
-    $sub=$_POST["sub"];
-    $tmid=$_POST["time"];
-    // $dte=$_POST["dte"];
-    $day=$_POST["day"];
-    $rid=$_POST["rid"];
-    $tid=$_POST["tid"];
-    //echo $tid;
+ if(isset($_POST['updateTime'])) {
+    
+    $tsid=$_POST["tsid"];
+    $sub=$_POST["usub"];
+    $tmid=$_POST["utime"];
+    $day=$_POST["uday"];
+    $rid=$_POST["urid"];
+    $tid=$_POST["utid"];
+
+    // $sql1 = "UPDATE timeschedule set subject_id = 0,time_id = 0, day = 0, room_id = 0,teacher_id = 0 WHERE timeschedule_id = $tsid";
+
+    // mysqli_query($conn, $sql1)
+
 
 if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available'))
 {
 
 
-    $sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
-        VALUES ('".$sub."','".$tmid."','2019-08-08','".$day."','".$rid."','".$tid."')";
+    $sql = "UPDATE timeschedule set subject_id = $sub,time_id = $tmid, day = $day, room_id = $rid,teacher_id = $tid WHERE timeschedule_id = $tsid";
+
     if (mysqli_query($conn, $sql)) {
      echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
 } else {
-     echo "<script type='text/javascript'>alert('Insertion Failed! (Server Error)')</script>";
-     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+     echo "<script type='text/javascript'>alert('Updation Failed! (Server Error)')</script>";
+    // echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+
 }
 
 }else{
-
 
  echo "<script type='text/javascript'>alert('Time Slot Already Assigned')</script>";
       echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";    
@@ -194,6 +199,9 @@ if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,
 }
 
 }
+
+
+mysqli_close($conn);
 
 function checkTeacher($tmid,$day,$rid,$tid){
 
@@ -206,7 +214,9 @@ function checkTeacher($tmid,$day,$rid,$tid){
          -- room_id = $rid and 
          teacher_id = $tid ");
 
-    if(mysqli_fetch_array($result) != false)
+    $rowcount=mysqli_num_rows($result);
+    
+    if($rowcount > 1)
     {    mysqli_close($conn);
 
         return 'Assigned';
@@ -230,7 +240,9 @@ function checkRoom($tmid,$day,$rid){
          day = $day and 
          room_id = $rid");
 
-    if(mysqli_fetch_array($result) != false)
+    $rowcount=mysqli_num_rows($result);
+    
+    if($rowcount > 1)
     {    mysqli_close($conn);
 
         return 'Assigned';

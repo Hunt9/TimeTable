@@ -195,11 +195,13 @@
           <h1 class="h3 mb-2 text-gray-800">Time Tables</h1>
           <p class="mb-4">Below are the Schedules for Subjects, Teachers, Events and Rooms. Click <a href="#" data-toggle="modal" data-target="#insertModal">
                   Here
-                </a> to Add New, to Update 
+                </a> to Add New
+
+                <!-- , to Update 
 
                 <a href="#" data-toggle="modal" data-target="#updateModal">
                   Here
-                </a>
+                </a> -->
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -222,6 +224,8 @@
 					             <th>Building</th>
 					  
 					              <th>Teacher</th>
+
+                          <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -237,6 +241,7 @@
 					            <th>Building</th>
 	
 					            <th>Teacher</th>
+                      <th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -265,7 +270,7 @@ $result = mysqli_query($con,$query);
 while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
 
 //$rpid = $row["rp_id"];
-//$pid = $row["p_id"];
+$tsid = $row["timeschedule_id"];
 
     echo "<tr>
     <td>". $row["timeschedule_id"]. "</td>
@@ -278,6 +283,8 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
 		<td>". $row["room"]. " </td>
 		<td>". $row["building"]. " </td>
 								<td>". $row["tchr"]. " </td>
+
+<form method = 'post' action = 'delete.php'> <td>"."<Button class='btn btn-secondary' type = 'submit' name='clear'  id= 'clear'  value = $tsid>Delete</Button> "."</td> </form>
 
 
 	 
