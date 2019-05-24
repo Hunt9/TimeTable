@@ -1,4 +1,25 @@
-<?php
+<?php     
+$to_email = 'champthe20@gmail.com';
+$subject = 'Testing PHP Mail';
+$message = 'This mail is sent using the PHP mail function';
+$headers = 'From: mailfromtimetable@gmail.com'; 
+mail($to_email,$subject,$message,$headers);
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <?php
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -51,3 +72,4 @@ try {
 ?>
 
 
+ -->

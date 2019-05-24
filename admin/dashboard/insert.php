@@ -39,39 +39,6 @@
 }
 }
 
-//====================== Insert TimeTables ==============================
-
- if(isset($_POST['insertTime'])) {
-    $sub=$_POST["sub"];
-    $tmid=$_POST["time"];
-    // $dte=$_POST["dte"];
-    $day=$_POST["day"];
-    $rid=$_POST["rid"];
-    $tid=$_POST["tid"];
-    //echo $tid;
-
-if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available') && (checkSubject($tmid,$day,$sub) == 'Available') )
-{
-
-
-    $sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
-        VALUES ('".$sub."','".$tmid."','2019-08-08','".$day."','".$rid."','".$tid."')";
-    if (mysqli_query($conn, $sql)) {
-     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
-} else {
-     echo "<script type='text/javascript'>alert('Insertion Failed! (Server Error)')</script>";
-     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
-}
-
-}else{
-
-
- echo "<script type='text/javascript'>alert('Time Slot Already Assigned')</script>";
-      echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";    
-
-}
-
-}
 
 
 //====================== Insert Departments ==============================
@@ -157,29 +124,45 @@ if(isset($_POST['insertevent'])) {
 
 
 
-mysqli_close($conn);
 
 
 
-function checkTeacher($tmid,$day,$rid,$tid){
 
-    $conn=mysqli_connect('localhost','root','','timetable');
-    
-    $result = mysqli_query($conn,
-        "SELECT * FROM timeschedule WHERE 
-         time_id = $tmid and 
-         day = $day and 
-         -- room_id = $rid and 
-         teacher_id = $tid ");
 
-    if(mysqli_fetch_array($result) != false)
-    {    mysqli_close($conn);
 
-        return 'Assigned';
-    }else{
-        mysqli_close($conn);
+//====================== Insert TimeTables ==============================
 
-    return 'Available';
+ if(isset($_POST['insertTime'])) {
+    $sub=$_POST["sub"];
+    $tmid=$_POST["time"];
+    // $dte=$_POST["dte"];
+    $day=$_POST["day"];
+    $rid=$_POST["rid"];
+    $tid=$_POST["tid"];
+    //echo $tid;
+
+if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available') && (checkSubject($tmid,$day,$sub) == 'Available') )
+{
+
+
+    $sql = "INSERT INTO timeschedule (subject_id,time_id,date,day,room_id,teacher_id)
+        VALUES ('".$sub."','".$tmid."','2019-08-08','".$day."','".$rid."','".$tid."')";
+    if (mysqli_query($conn, $sql)) {
+
+        notifusers($sub,$tid);
+
+     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+} else {
+     echo "<script type='text/javascript'>alert('Insertion Failed! (Server Error)')</script>";
+     echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";
+}
+
+}else{
+
+
+ echo "<script type='text/javascript'>alert('Time Slot Already Assigned')</script>";
+      echo "<script type = 'text/javascript'>window.location.href = 'index.php'; </script> ";    
+
 }
 
 }
@@ -226,6 +209,131 @@ function checkSubject($tmid,$day,$sub){
     return 'Available';
 }
 }
+
+
+function checkTeacher($tmid,$day,$rid,$tid){
+
+    $conn=mysqli_connect('localhost','root','','timetable');
+    
+    $result = mysqli_query($conn,
+        "SELECT * FROM timeschedule WHERE 
+         time_id = $tmid and 
+         day = $day and 
+         -- room_id = $rid and 
+         teacher_id = $tid ");
+
+    if(mysqli_fetch_array($result) != false)
+    {    mysqli_close($conn);
+
+        return 'Assigned';
+    }else{
+        mysqli_close($conn);
+
+    return 'Available';
+}
+
+}
+
+ 
+
+function notifusers($sub,$tid){
+        $conn=mysqli_connect('localhost','root','','timetable');
+
+
+        require("phpmailer/class.phpmailer.php");
+    
+
+    $sql = "SELECT eid FROM teacher WHERE teacher_id = $tid";
+    $result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+ 
+        $email_id = $row["eid"];
+
+        $mailer = new PHPMailer();
+        $mailer->IsSMTP();
+        $mailer->Host = 'ssl://smtp.gmail.com';
+        $mailer->Port = 465; //can be 587
+        $mailer->SMTPAuth = TRUE;
+        $mailer->Username = 'mailfromtimetable@gmail.com';  // Change this to your gmail address
+        $mailer->Password = 'cIrclesLTD786';// Change this to your gmail password
+        $mailer->From = 'mailfromtimetable@gmail.com';  // Change this to your gmail address
+        $mailer->FromName = 'Time Table'; // This will reflect as from name in the email to be sent
+        $mailer->Body = 'Your Time Table Has Been Updated! Kindly Login To Check Details.';
+        $mailer->Subject = 'Update';
+        $mailer->AddAddress($email_id);  // This is where you want your email to be sent
+        $mailer->Send();
+        // if(!$mailer->Send())
+        // {
+        //    echo "Message was not sent<br/ >";
+        //    echo "Mailer Error: " . $mailer->ErrorInfo;
+        // }
+        // else
+        // {
+        //    echo "Message has been sent";
+        // }
+
+
+    }
+}
+
+
+
+
+
+    $sql = "select st.eid from subject as s 
+            inner join semester as sem on sem.sem_id = s.sem_id
+            inner join student as st on st.sem_id = s.sem_id
+            where s.sem_id =(select sem_id from subject where subject_id = $sub) group by st.eid";
+
+    $result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+ 
+        $email_id = $row["eid"];
+
+        $mailer = new PHPMailer();
+        $mailer->IsSMTP();
+        $mailer->Host = 'ssl://smtp.gmail.com';
+        $mailer->Port = 465; //can be 587
+        $mailer->SMTPAuth = TRUE;
+        $mailer->Username = 'mailfromtimetable@gmail.com';  // Change this to your gmail address
+        $mailer->Password = 'cIrclesLTD786';// Change this to your gmail password
+        $mailer->From = 'mailfromtimetable@gmail.com';  // Change this to your gmail address
+        $mailer->FromName = 'Time Table'; // This will reflect as from name in the email to be sent
+        $mailer->Body = 'Your Time Table Has Been Updated! Kindly Login To Check Details.';
+        $mailer->Subject = 'Update';
+        $mailer->AddAddress($email_id);  // This is where you want your email to be sent
+        $mailer->Send();
+        // if(!$mailer->Send())
+        // {
+        //    echo "Message was not sent<br/ >";
+        //    echo "Mailer Error: " . $mailer->ErrorInfo;
+        // }
+        // else
+        // {
+        //    echo "Message has been sent";
+        // }
+
+
+
+    }
+}
+
+
+
+
+
+mysqli_close($conn);
+
+}
+
+
+
+
+        mysqli_close($conn);
 
 
 
