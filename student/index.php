@@ -19,6 +19,7 @@ if(isset($save))
 		$_SESSION['name']=$res['name'];
 		$_SESSION['stu_id']=$res['stu_id'];
 		$_SESSION['e_id']=$e;
+        $_SESSION['sem_id']=$res['sem_id'];
 
 		echo "<script>window.location='dashboard'</script>";
 		}

@@ -1,3 +1,12 @@
+<?php 
+session_start();
+include('config.php');
+
+if($_SESSION['stu_id']=="" && $_SESSION['name']=="")
+{
+  echo "<script type = 'text/javascript'>window.location.href = '../index.php'; </script> ";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,7 +147,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Student</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name'];?></span>
                 <img class="img-profile rounded-circle" src="img/admin.jpg">
               </a>
               <!-- Dropdown - User Information -->
@@ -187,9 +196,11 @@
                  <?php
 		 $connection=mysqli_connect('localhost','root','','timetable');
 
+     $id = $_SESSION['stu_id'];
+
 $query = "Select student.name,student.eid, student.mob,student.address, department.department_name,
 semester.semester_name, student.dob,student.gender from student inner join department
- on student.department_id=department.department_id inner join semester on semester.sem_id=student.sem_id where student.stu_id=1"; 
+ on student.department_id=department.department_id inner join semester on semester.sem_id=student.sem_id where student.stu_id=$id"; 
 
 $result = mysqli_query($connection,$query);
 
@@ -408,7 +419,7 @@ while($row = mysqli_fetch_array($result)){
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

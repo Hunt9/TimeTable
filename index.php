@@ -244,7 +244,7 @@ $row=mysqli_num_rows($que);
 	{
 	$image=$_FILES['pic']['name'];	
 		
-       mysqli_query($con,"insert into student               values('','$stname','$eid','$p','$mobile','$address','$courseid','$s','$dob','$image','$gen','$status',now())");	
+       mysqli_query($con,"insert into student               values('','$stname','$eid','$p','$mobile','$address','$courseid','$s','$dob','abc','$gen','$status',now())");	
 
     mkdir("../student/image/$eid");
      move_uploaded_file($_FILES['pic']['tmp_name'],"../student/image/$eid/".$_FILES['pic']['name']);
@@ -391,9 +391,9 @@ xmlhttp.send();
         <input type="date" class="form-control" placeholder="D.O.B" name="dob"/>
     </div>
   
-   <div class="row" style="margin-bottom: 10px;">
+<!--    <div class="row" style="margin-bottom: 10px;">
         <input type="file" class="form-control" placeholder="Pic" name="pic"/>
-    </div>
+    </div> -->
   
      <div class="row" style="margin-bottom: 10px;">
     <select name="status" class="form-control" placeholder="Status" name="status"/>
