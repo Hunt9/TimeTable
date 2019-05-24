@@ -1,3 +1,13 @@
+<?php 
+session_start();
+include('config.php');
+$id = $_SESSION['teacher_id'];
+
+if($_SESSION['teacher_id']=="" && $_SESSION['name']=="")
+{
+  echo "<script type = 'text/javascript'>window.location.href = '../index.php'; </script> ";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -297,10 +307,12 @@ function getDataM()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id= $id  and timeschedule.day=1 
  and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -341,9 +353,12 @@ function getDataM1()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=2
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id= $id  and timeschedule.day=1 and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -383,9 +398,12 @@ function getDataM2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -427,9 +445,12 @@ function getDataM3()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=4
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -469,9 +490,12 @@ function getDataM4()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -511,9 +535,12 @@ function getDataM5()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -555,9 +582,12 @@ function getDataM6()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -598,9 +628,12 @@ function getDataM7()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=8
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -641,9 +674,12 @@ function getDataM8()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=9
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -684,9 +720,12 @@ function getDataM9()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id as tid from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=1 and timeschedule.time_id=10
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=1 and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
 $result = mysqli_query($con,$query);
@@ -734,9 +773,12 @@ function getDataT()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id 
  and timeschedule.day=2 and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -777,9 +819,12 @@ function getDataT2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=2
  and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -819,9 +864,12 @@ function getDataT3()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -862,9 +910,12 @@ function getDataT4()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=2 and
  timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -905,9 +956,12 @@ function getDataT5()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -948,9 +1002,12 @@ function getDataT6()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -990,9 +1047,12 @@ function getDataT7()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -1032,9 +1092,12 @@ function getDataT8()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -1074,9 +1137,12 @@ function getDataT9()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=2 and
  timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -1116,9 +1182,12 @@ function getDataT10()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name,timeschedule.time_id from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=2 and
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=2 and
  timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -1166,9 +1235,12 @@ function getDataW()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -1208,9 +1280,12 @@ function getDataW2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -1250,9 +1325,12 @@ function getDataW3()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -1292,9 +1370,12 @@ function getDataW4()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=3
  and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -1334,9 +1415,12 @@ function getDataW5()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=3
  and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -1376,9 +1460,12 @@ function getDataW6()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -1418,9 +1505,12 @@ function getDataW7()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -1459,10 +1549,12 @@ function getDataW8()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -1502,9 +1594,11 @@ function getDataW9()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=3
  and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -1544,9 +1638,11 @@ function getDataW10()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=3
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=3
  and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -1590,9 +1686,11 @@ function getDataTH()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  
  and timeschedule.day=4 and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -1632,10 +1730,12 @@ function getDataTH1()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id
  and timeschedule.day=4 and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -1674,10 +1774,12 @@ function getDataTH2()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id
  and timeschedule.day=4 and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -1716,10 +1818,12 @@ function getDataTH3()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id 
  and timeschedule.day=4 and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -1759,9 +1863,11 @@ function getDataTH4()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id 
  and timeschedule.day=4 and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -1802,9 +1908,11 @@ function getDataTH5()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  
  and timeschedule.day=4 and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -1843,10 +1951,12 @@ function getDataTH6()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  
  and timeschedule.day=4 and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -1886,10 +1996,12 @@ function getDataTH7()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id
  and timeschedule.day=4 and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -1929,9 +2041,11 @@ function getDataTH8()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  
  and timeschedule.day=4 and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -1970,10 +2084,12 @@ function getDataTH9()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id 
  and timeschedule.day=4 and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -2013,9 +2129,11 @@ function getDataTH10()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  
  and timeschedule.day=4 and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -2059,9 +2177,13 @@ function getDataF()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -2102,9 +2224,11 @@ function getDataF2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -2144,10 +2268,12 @@ function getDataF3()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -2188,9 +2314,11 @@ function getDataF4()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -2230,10 +2358,12 @@ function getDataF5()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -2274,10 +2404,12 @@ function getDataF6()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -2317,10 +2449,12 @@ function getDataF7()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -2361,9 +2495,11 @@ function getDataF8()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=5
  and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -2404,9 +2540,11 @@ function getDataF9()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -2446,10 +2584,12 @@ function getDataF10()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=5
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=5
  and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -2494,9 +2634,11 @@ function getDataSa()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -2537,9 +2679,11 @@ function getDataSa2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -2578,10 +2722,12 @@ function getDataSa3()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -2620,10 +2766,12 @@ function getDataSa4()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -2662,10 +2810,12 @@ function getDataSa5()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -2705,9 +2855,11 @@ function getDataSa6()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -2747,9 +2899,11 @@ function getDataSa7()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=6
  and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -2789,9 +2943,11 @@ function getDataSa8()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=6
  and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -2831,9 +2987,11 @@ function getDataSa9()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -2873,9 +3031,11 @@ function getDataSa10()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=6
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=6
  and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -2919,9 +3079,11 @@ function getDataS()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=1
  order by timeschedule.time_id asc"; 
 
@@ -2961,9 +3123,11 @@ function getDataS2()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=7
  and timeschedule.time_id=2
  order by timeschedule.time_id asc"; 
 
@@ -3002,10 +3166,12 @@ function getDataS3()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=3
  order by timeschedule.time_id asc"; 
 
@@ -3044,10 +3210,12 @@ function getDataS4()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=4
  order by timeschedule.time_id asc"; 
 
@@ -3087,9 +3255,11 @@ function getDataS5()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=5
  order by timeschedule.time_id asc"; 
 
@@ -3129,9 +3299,11 @@ function getDataS6()
 $con=mysqli_connect('localhost','root','','timetable');
 
 
+$id = $_SESSION['teacher_id'];
+
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=6
  order by timeschedule.time_id asc"; 
 
@@ -3170,10 +3342,12 @@ function getDataS7()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=7
  order by timeschedule.time_id asc"; 
 
@@ -3212,10 +3386,12 @@ function getDataS8()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=7
  and timeschedule.time_id=8
  order by timeschedule.time_id asc"; 
 
@@ -3254,10 +3430,12 @@ function getDataS9()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id and timeschedule.day=7
  and timeschedule.time_id=9
  order by timeschedule.time_id asc"; 
 
@@ -3297,10 +3475,12 @@ function getDataS10()
     
 $con=mysqli_connect('localhost','root','','timetable');
 
+$id = $_SESSION['teacher_id'];
+
 
 $query = "Select subject.subject_name,room.name as r,building.name as b,semester.semester_name from timeschedule
  inner join subject on subject.subject_id=timeschedule.subject_id inner join room on timeschedule.room_id=room.id inner join
- building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=27  and timeschedule.day=7
+ building on room.building_id=building.id INNER join semester on subject.sem_id=semester.sem_id where timeschedule.teacher_id=$id  and timeschedule.day=7
  and timeschedule.time_id=10
  order by timeschedule.time_id asc"; 
 
@@ -3326,9 +3506,10 @@ mysqli_close($con);
     getDataS10();
 
 
+
+
  
 mysqli_close($con);
-
  
 ?>   </td> 
 
@@ -3448,7 +3629,7 @@ mysqli_close($con);
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php" >Logout</a>
         </div>
       </div>
     </div>
