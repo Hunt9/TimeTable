@@ -1,3 +1,12 @@
+<?php 
+session_start();
+include('config.php');
+
+if($_SESSION['admin']=="")
+{
+  echo "<script type = 'text/javascript'>window.location.href = '../index.php'; </script> ";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -663,7 +672,7 @@ $result = mysqli_query($con,$query);
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@
     $tid=$_POST["tid"];
     //echo $tid;
 
-if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available'))
+if((checkTeacher($tmid,$day,$rid,$tid) == 'Available') && (checkRoom($tmid,$day,$rid) == 'Available') && (checkSubject($tmid,$day,$sub) == 'Available') )
 {
 
 
@@ -195,6 +195,26 @@ function checkRoom($tmid,$day,$rid){
          time_id = $tmid and 
          day = $day and 
          room_id = $rid");
+
+    if(mysqli_fetch_array($result) != false)
+    {    mysqli_close($conn);
+
+        return 'Assigned';
+    }else{
+        mysqli_close($conn);
+
+    return 'Available';
+}
+}
+
+function checkSubject($tmid,$day,$sub){
+        $conn=mysqli_connect('localhost','root','','timetable');
+    
+    $result = mysqli_query($conn,
+        "SELECT * FROM timeschedule WHERE 
+         time_id = $tmid and 
+         day = $day and 
+         subject_id = $sub");
 
     if(mysqli_fetch_array($result) != false)
     {    mysqli_close($conn);

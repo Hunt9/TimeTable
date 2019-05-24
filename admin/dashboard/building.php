@@ -1,43 +1,12 @@
-<?php
-  	if(isset($_POST['insertBr'])) {
-		$conn=mysqli_connect('localhost','root','','timetable');
-		$br=$_POST["br"];
-		$room=$_POST["room"];
-		$seat=$_POST["seat"];
-		$sql = "INSERT INTO room (name,seats,building_id)
-        VALUES ('".$room."','".$seat."','".$br."')";
-		if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+<?php 
+session_start();
+include('config.php');
+
+if($_SESSION['admin']=="")
+{
+  echo "<script type = 'text/javascript'>window.location.href = '../index.php'; </script> ";
 }
-
-mysqli_close($conn);
-
-	
-	}
-
 ?>
-<?php
-
-  if(isset($_POST['insertBuiliding'])) {
-    $conn=mysqli_connect('localhost','root','','timetable');
-    $building =$_POST["building"];
-
-    $sql = "INSERT INTO building (name)
-        VALUES ('".$building."')";
-    if (mysqli_query($conn, $sql)) {
- //   echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-  
-  }
-  ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -570,7 +539,7 @@ mysqli_close($con);
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

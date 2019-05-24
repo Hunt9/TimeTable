@@ -118,7 +118,7 @@ if(isset($save))
 
   
 <footer class="container-fluid">
-  <p align="center">Developed By: Manu Kaler</p>
+  <p align="center">Developed By: FYP</p>
 </footer>
     
       <!-- jQuery -->
